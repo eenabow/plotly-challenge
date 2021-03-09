@@ -37,14 +37,18 @@ function populateDemographic(optionSelected) {
         // Locate demographics in samples.json
         var demoList = samplesData.metadata
         // Filter demographics list to Id selected by user
-        var filteredDemo = demoList.filter( subject => subject.id == optionSelected)
+        var filteredDemo = demoList.filter(subject => subject.id == optionSelected)
         console.log(filteredDemo)
         // Select demographic panel to input data
         var idDemographics = d3.select("#sample-metadata")
+        // Clear existing demographic info 
+        idDemographics.html("");
         // Append demographic to panel 
-        Object.entries
+        Object.entries(filteredDemo).forEach((key) => {
+            idDemographics.append("h4").text(key[0] + ":" + key[1]);
+        });
 
-// append a p tag, a text value, etc. 
+        // append a p tag, a text value, etc. 
     });
 };
 
