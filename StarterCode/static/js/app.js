@@ -34,11 +34,15 @@ console.log(getData)
 // Demographic Info- Display each key-value pair from the metadata JSON object somewhere on the page.
 function populateDemographic(optionSelected) {
     d3.json("samples.json").then(function (samplesData) {
-        var demoInfo = samplesData.metadata
-        var filteredDemo = demoInfo.filter( subject => subject.id == optionSelected)
-        // var filteredDemo = demoInfo.filter
+        // Locate demographics in samples.json
+        var demoList = samplesData.metadata
+        // Filter demographics list to Id selected by user
+        var filteredDemo = demoList.filter( subject => subject.id == optionSelected)
         console.log(filteredDemo)
-        var demoList = d3.select("#sample-metadata")
+        // Select demographic panel to input data
+        var idDemographics = d3.select("#sample-metadata")
+        // Append demographic to panel 
+        Object.entries
 
 // append a p tag, a text value, etc. 
     });
@@ -54,9 +58,12 @@ function populateDemographic(optionSelected) {
 
 // Function to select ID 
 function populateSelector() {
+    // Find Select tag in HTML 
     var idSelector = d3.select("#selDataset");
     d3.json("samples.json").then(function (samplesData) {
+        // Locate names in samples.json
         var idNames = samplesData.names
+        // Create a list and append the list as options under the select tag in html 
         idNames.forEach((name) => {
             idSelector.append("option").text(name).property("value", name)
         })
