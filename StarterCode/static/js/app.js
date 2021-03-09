@@ -12,9 +12,7 @@ function getData(id) {
 
     // Clear any existing sample data 
     sampleData.html("");
-
 };
-console.log(getData)
 
 // locate the test subject id 
 // Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
@@ -35,20 +33,18 @@ console.log(getData)
 function populateDemographic(optionSelected) {
     d3.json("samples.json").then(function (samplesData) {
         // Locate demographics in samples.json
-        var demoList = samplesData.metadata
+        var demoList = samplesData.metadata;
         // Filter demographics list to Id selected by user
-        var filteredDemo = demoList.filter(subject => subject.id == optionSelected)
+        var filteredDemo = demoList.filter(subject => subject.id == optionSelected)[0];
         console.log(filteredDemo)
         // Select demographic panel to input data
-        var idDemographics = d3.select("#sample-metadata")
+        var idDemographics = d3.select("#sample-metadata");
         // Clear existing demographic info 
         idDemographics.html("");
         // Append demographic to panel 
-        Object.entries(filteredDemo).forEach((key) => {
-            idDemographics.append("h4").text(key[0] + ":" + key[1]);
+        Object.entries(filteredDemo).forEach(function([key, value]) {
+            idDemographics.append("h5").text(`${key}:${value}`);
         });
-
-        // append a p tag, a text value, etc. 
     });
 };
 
