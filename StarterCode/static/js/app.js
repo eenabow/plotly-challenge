@@ -53,6 +53,13 @@ function populateDemographic(optionSelected) {
 // Use sample_values as the values for the bar chart.
 // Use otu_ids as the labels for the bar chart.
 // Use otu_labels as the hovertext for the chart.
+
+function buildCharts(optionSelected) {
+
+
+
+}
+
 function barChart(optionSelected) {
     d3.json("samples.json").then(function (samplesData) {
         // Locate samples in samples.json
@@ -67,13 +74,15 @@ function barChart(optionSelected) {
         var top10Ids = filteredSample['otu_ids'].slice(0, 10);
         var top10Labels = filteredSample['otu_labels'].slice(0, 10);
         console.log(top10Samples);
-
+        console.log(top10Ids)
         // @TODO SET TO X AND Y VALUES 
         var data = [{
             type: 'bar',
-            x: top10Labels,
-            y: top10Samples,
-            orientation: 'h'
+            x: top10Samples,
+            y: ids.slice(0, 10).map(otuID => `OTU ${otuID}`).reverse(),
+            orientation: 'h',
+            marker: { size: 16 },
+            // text: top10Ids
         }];
 
         Plotly.newPlot('bar', data);
@@ -81,7 +90,17 @@ function barChart(optionSelected) {
 
 };
 
-
+// var data = [{
+//     type: 'bar',
+//     x: x_values,
+//     y: y_values,
+//     orientation: 'h',
+//     mode: 'markers',
+//     marker: { size: 16 },
+//     text: labels
+// }];
+// Plotly.newPlot('bar', data);
+// console.log(filteredSample);
 // Create a bubble chart that displays each sample.
 // Use otu_ids for the x values.
 // Use sample_values for the y values.
