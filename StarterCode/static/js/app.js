@@ -57,27 +57,30 @@ function barChart(optionSelected) {
     d3.json("samples.json").then(function (samplesData) {
         // Locate samples in samples.json
         var sampleList = samplesData.samples;
+
         // Filter Bacteria samples list to Id selected by user
         var filteredSample = sampleList.filter(subject => subject.id == optionSelected)[0];
-        console.log(filteredSample)
+        // console.log(filteredSample)
 
-        // @TODO FIND TOP 10 SAMPLES 
-        // var topSamples = filteredSample.sort(function(a, b) {
-        //     return d3.descending(+a.Impressions, +b.Impressions);
-        // }).slice(0, 10);
+        // Slice top ten samples
+        var top10Samples = filteredSample['sample_values'].slice(0, 10);
+        var top10Ids = filteredSample['otu_ids'].slice(0, 10);
+        var top10Labels = filteredSample['otu_labels'].slice(0, 10);
+        console.log(top10Samples);
+
         // @TODO SET TO X AND Y VALUES 
-        // @TODO CREATE GRAPH 
-        // var data = [{
-        //     type: 'bar',
-        //     x: [20, 14, 23],
-        //     y: ['giraffes', 'orangutans', 'monkeys'],
-        //     orientation: 'h'
-        // }];
+        var data = [{
+            type: 'bar',
+            x: top10Labels,
+            y: top10Samples,
+            orientation: 'h'
+        }];
 
-        // Plotly.newPlot('myDiv', data);
+        Plotly.newPlot('bar', data);
     });
-    
+
 };
+
 
 // Create a bubble chart that displays each sample.
 // Use otu_ids for the x values.
@@ -134,7 +137,7 @@ function barChart(optionSelected) {
 //       .style("fill", "#69b3a2")
 //       .style("opacity", "0.7")
 //       .attr("stroke", "black")
-      
+
 // })
 
 
