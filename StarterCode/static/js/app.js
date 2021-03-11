@@ -55,52 +55,35 @@ function populateDemographic(optionSelected) {
 // Use otu_labels as the hovertext for the chart.
 
 function buildCharts(optionSelected) {
-
-
-
-}
-
-function barChart(optionSelected) {
     d3.json("samples.json").then(function (samplesData) {
         // Locate samples in samples.json
         var sampleList = samplesData.samples;
 
         // Filter Bacteria samples list to Id selected by user
         var filteredSample = sampleList.filter(subject => subject.id == optionSelected)[0];
-        // console.log(filteredSample)
 
-        // Slice top ten samples
-        var top10Samples = filteredSample['sample_values'].slice(0, 10);
-        var top10Ids = filteredSample['otu_ids'].slice(0, 10);
-        var top10Labels = filteredSample['otu_labels'].slice(0, 10);
-        console.log(top10Samples);
-        console.log(top10Ids)
-        // @TODO SET TO X AND Y VALUES 
-        var data = [{
+        // Slice top ten samples for barchart and build bar graph
+        var barData = [{
             type: 'bar',
-            x: top10Samples,
-            y: ids.slice(0, 10).map(otuID => `OTU ${otuID}`).reverse(),
+            x: filteredSample['sample_values'].slice(0, 10).reverse(),
+            y: filteredSample['otu_ids'].slice(0, 10).map(otuID => `OTU ${otuID}`).reverse(),
             orientation: 'h',
-            marker: { size: 16 },
-            // text: top10Ids
+            marker: { size: 13 },
+            text: filteredSample['otu_labels'].slice(0, 10).reverse()
+            
+              
         }];
+        var barLayout = {
+            title: "Top 10 Bacteria Cultures Found",
+            xaxis: { title: "Bacteria sample values"},
+            yaxis: { title: "Bacteria ID", }
+        };
+    
+        Plotly.newPlot('bar', barData, barLayout);
+    
+    }
+    )};
 
-        Plotly.newPlot('bar', data);
-    });
-
-};
-
-// var data = [{
-//     type: 'bar',
-//     x: x_values,
-//     y: y_values,
-//     orientation: 'h',
-//     mode: 'markers',
-//     marker: { size: 16 },
-//     text: labels
-// }];
-// Plotly.newPlot('bar', data);
-// console.log(filteredSample);
 // Create a bubble chart that displays each sample.
 // Use otu_ids for the x values.
 // Use sample_values for the y values.
@@ -169,7 +152,7 @@ function barChart(optionSelected) {
 // Update all of the plots any time that a new sample is selected.
 function optionChanged(optionSelected) {
     populateDemographic(optionSelected)
-    barChart(optionSelected)
+    buildCharts(optionSelected)
 };
 
 
