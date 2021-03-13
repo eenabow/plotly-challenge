@@ -90,7 +90,7 @@ function buildCharts(optionSelected) {
         // Use otu_ids for the marker colors.
         // Use otu_labels for the text values.
         // set the dimensions and margins of the graph
-        
+      
         var bubbleLayout = {
             title: "Bacteria Cultures Per Sample",
             margin: { t: 0 },
@@ -100,13 +100,13 @@ function buildCharts(optionSelected) {
           };
           var bubbleData = [
             {
-              x: filteredSample['otu_ids'].map(otuID => `OTU ${otuID}`).reverse(),
-              y: filteredSample['sample_values'].reverse(),
-              text: filteredSample['otu_labels'].reverse(),
+              x: filteredSample['otu_ids'].map(otuID => `${otuID}`),
+              y: filteredSample['sample_values'],
+              text: filteredSample['otu_labels'],
               mode: "markers",
               marker: {
-                size: filteredSample['sample_values'].reverse(),
-                color: filteredSample['otu_ids'].map(otuID => `OTU ${otuID}`).reverse(),
+                size: filteredSample['sample_values'],
+                color: filteredSample['otu_ids'].map(otuID => `${otuID}`),
                 colorscale: "rainbow"
               }
             }
