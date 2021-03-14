@@ -119,9 +119,6 @@ function buildCharts(optionSelected) {
 };
 
 
-
-
-
 // Update all of the plots any time that a new sample is selected.
 function optionChanged(optionSelected) {
     populateDemographic(optionSelected)
